@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   ScrollView,
+  FlatList,
 } from "react-native";
 import { useState } from "react";
 
@@ -21,9 +22,9 @@ export default function App() {
       // Only add if there's text
       setCourseGoals((currentCourseGoals) => [
         ...currentCourseGoals,
-        enteredGoalText,
+        { text: enteredGoalText, Key: Math.random().toString() },
       ]);
-      setEnteredGoalText(""); // Clear the input field after adding
+      // setEnteredGoalText(""); // Clear the input field after adding
     }
   }
 
@@ -39,15 +40,16 @@ export default function App() {
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        <ScrollView>
-          {courseGoals.map((item, i) => {
+        <FlatList
+          data={courseGoals}
+          renderItem={(itemData) => {
             return (
-              <View key={i} style={styles.goalItem}>
-                <Text style={styles.goalText}>{item}</Text>
+              <View style={styles.goalItem}>
+                <Text style={styles.goalText}>{itemData.item.text}</Text>
               </View>
             );
-          })}
-        </ScrollView>
+          }}
+        />
       </View>
     </View>
   );
