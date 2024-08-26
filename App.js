@@ -22,7 +22,7 @@ export default function App() {
       // Only add if there's text
       setCourseGoals((currentCourseGoals) => [
         ...currentCourseGoals,
-        { text: enteredGoalText, Key: Math.random().toString() },
+        { text: enteredGoalText, id: Math.random().toString() },
       ]);
       // setEnteredGoalText(""); // Clear the input field after adding
     }
@@ -49,6 +49,7 @@ export default function App() {
               </View>
             );
           }}
+          keyExtractor={(item , index) => {return item.id}}
         />
       </View>
     </View>
